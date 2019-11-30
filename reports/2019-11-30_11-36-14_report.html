@@ -1,0 +1,1523 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>测试报告</title>
+    <meta name="generator" content="HTMLTestRunner 0.8.2.2"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link href="http://libs.baidu.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
+    <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+    <script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+    
+<style type="text/css" media="screen">
+body        { font-family: Microsoft YaHei,Tahoma,arial,helvetica,sans-serif;padding: 20px; font-size: 120%; }
+table       { font-size: 100%; }
+/* -- heading ---------------------------------------------------------------------- */
+.heading {
+    margin-top: 0ex;
+    margin-bottom: 1ex;
+}
+.heading .description {
+    margin-top: 4ex;
+    margin-bottom: 6ex;
+}
+/* -- report ------------------------------------------------------------------------ */
+#total_row  { font-weight: bold; }
+.passCase   { color: #5cb85c; }
+.failCase   { color: #d9534f; font-weight: bold; }
+.errorCase  { color: #f0ad4e; font-weight: bold; }
+.hiddenRow  { display: none; }
+.testcase   { margin-left: 2em; }
+</style>
+
+</head>
+<body >
+<script language="javascript" type="text/javascript">
+output_list = Array();
+/*level 调整增加只显示通过用例的分类 --Findyou
+0:Summary //all hiddenRow
+1:Failed  //pt hiddenRow, ft none
+2:Pass    //pt none, ft hiddenRow
+3:All     //pt none, ft none
+*/
+function showCase(level) {
+    trs = document.getElementsByTagName("tr");
+    for (var i = 0; i < trs.length; i++) {
+        tr = trs[i];
+        id = tr.id;
+        if (id.substr(0,2) == 'ft') {
+            if (level == 2 || level == 0 ) {
+                tr.className = 'hiddenRow';
+            }
+            else {
+                tr.className = '';
+            }
+        }
+        if (id.substr(0,2) == 'pt') {
+            if (level < 2) {
+                tr.className = 'hiddenRow';
+            }
+            else {
+                tr.className = '';
+            }
+        }
+    }
+    //加入【详细】切换文字变化 --Findyou
+    detail_class=document.getElementsByClassName('detail');
+	//console.log(detail_class.length)
+	if (level == 3) {
+		for (var i = 0; i < detail_class.length; i++){
+			detail_class[i].innerHTML="收起"
+		}
+	}
+	else{
+			for (var i = 0; i < detail_class.length; i++){
+			detail_class[i].innerHTML="详细"
+		}
+	}
+}
+function showClassDetail(cid, count) {
+    var id_list = Array(count);
+    var toHide = 1;
+    for (var i = 0; i < count; i++) {
+        //ID修改 点 为 下划线 -Findyou
+        tid0 = 't' + cid.substr(1) + '_' + (i+1);
+        tid = 'f' + tid0;
+        tr = document.getElementById(tid);
+        if (!tr) {
+            tid = 'p' + tid0;
+            tr = document.getElementById(tid);
+        }
+        id_list[i] = tid;
+        if (tr.className) {
+            toHide = 0;
+        }
+    }
+    for (var i = 0; i < count; i++) {
+        tid = id_list[i];
+        //修改点击无法收起的BUG，加入【详细】切换文字变化 --Findyou
+        if (toHide) {
+            document.getElementById(tid).className = 'hiddenRow';
+            document.getElementById(cid).innerText = "详细"
+        }
+        else {
+            document.getElementById(tid).className = '';
+            document.getElementById(cid).innerText = "收起"
+        }
+    }
+}
+function html_escape(s) {
+    s = s.replace(/&/g,'&amp;');
+    s = s.replace(/</g,'&lt;');
+    s = s.replace(/>/g,'&gt;');
+    return s;
+}
+</script>
+<div class='heading'>
+<h1 style="font-family: Microsoft YaHei">测试报告</h1>
+<p class='attribute'><strong>测试人员 : </strong> grassroadsZ</p>
+<p class='attribute'><strong>开始时间 : </strong> 2019-11-30 11:36:14</p>
+<p class='attribute'><strong>合计耗时 : </strong> 0:00:19.872394</p>
+<p class='attribute'><strong>测试结果 : </strong> 共 114，通过 85，失败 27，错误 2，通过率= 74.56%</p>
+
+<p class='description'>接口测试</p>
+</div>
+
+
+<p id='show_detail_line'>
+<a class="btn btn-primary" href='javascript:showCase(0)'>概要{ 74.56% }</a>
+<a class="btn btn-danger" href='javascript:showCase(1)'>失败{ 27 }</a>
+<a class="btn btn-success" href='javascript:showCase(2)'>通过{ 85 }</a>
+<a class="btn btn-info" href='javascript:showCase(3)'>所有{ 114 }</a>
+</p>
+<table id='result_table' class="table table-condensed table-bordered table-hover">
+<colgroup>
+<col align='left' />
+<col align='right' />
+<col align='right' />
+<col align='right' />
+<col align='right' />
+<col align='right' />
+</colgroup>
+<tr id='header_row' class="text-center success" style="font-weight: bold;font-size: 16px;">
+    <td>用例集/测试用例</td>
+    <td>总计</td>
+    <td>通过</td>
+    <td>失败</td>
+    <td>错误</td>
+    <td>详细</td>
+</tr>
+
+<tr class='failClass warning'>
+    <td>test_01_register.TestRegister: 测试注册的类</td>
+    <td class="text-center">13</td>
+    <td class="text-center">11</td>
+    <td class="text-center">2</td>
+    <td class="text-center">0</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c1',13)" class="detail" id='c1'>详细</a></td>
+</tr>
+
+<tr id='ft1_1' class='none'>
+    <td class='failCase'><div class='testcase'>test_register_01_成功注册_完整</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft1_1' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft1_1'>失败</button>
+    <div id='div_ft1_1' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft1_1' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft1_1'>失败</button>
+    <div id='div_ft1_1' class="collapse in" align="left">
+    <pre>
+    
+ft1_1: Traceback (most recent call last):
+  File "/Users/grassroadsz/Downloads/Api_projects/libs/ddt.py", line 165, in wrapper
+    return func(self, *args, **kwargs)
+  File "/Users/grassroadsz/Downloads/Api_projects/cases/test_01_register.py", line 60, in test_register
+    raise a
+  File "/Users/grassroadsz/Downloads/Api_projects/cases/test_01_register.py", line 56, in test_register
+    self.assertEqual(except_result, response.text, msg=msg)
+AssertionError: '{"status":1,"code":"10001","data":null,"msg":"注册成功"}' != '{"status":0,"code":"20109","data":null,"msg":"手机号码格式不正确"}'
+- {"status":1,"code":"10001","data":null,"msg":"注册成功"}
+?           ^           ^^^                     ^^^^
++ {"status":0,"code":"20109","data":null,"msg":"手机号码格式不正确"}
+?           ^         ++  ^                     ^^^^^^^^^
+ : 成功注册-完整
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt1_2' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_register_02_注册失败_手机号为空</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通过</span></td>
+</tr>
+
+<tr id='pt1_3' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_register_03_注册失败_密码为空</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通过</span></td>
+</tr>
+
+<tr id='pt1_4' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_register_04_注册失败_手机号密码都为空</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通过</span></td>
+</tr>
+
+<tr id='pt1_5' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_register_05_成功注册_注册名为空</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通过</span></td>
+</tr>
+
+<tr id='ft1_6' class='none'>
+    <td class='failCase'><div class='testcase'>test_register_06_成功注册_无注册名字段</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft1_6' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft1_6'>失败</button>
+    <div id='div_ft1_6' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft1_6' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft1_6'>失败</button>
+    <div id='div_ft1_6' class="collapse in" align="left">
+    <pre>
+    
+ft1_6: Traceback (most recent call last):
+  File "/Users/grassroadsz/Downloads/Api_projects/libs/ddt.py", line 165, in wrapper
+    return func(self, *args, **kwargs)
+  File "/Users/grassroadsz/Downloads/Api_projects/cases/test_01_register.py", line 60, in test_register
+    raise a
+  File "/Users/grassroadsz/Downloads/Api_projects/cases/test_01_register.py", line 56, in test_register
+    self.assertEqual(except_result, response.text, msg=msg)
+AssertionError: '{"status":1,"code":"10001","data":null,"msg":"注册成功"}' != '{"status":0,"code":"20109","data":null,"msg":"手机号码格式不正确"}'
+- {"status":1,"code":"10001","data":null,"msg":"注册成功"}
+?           ^           ^^^                     ^^^^
++ {"status":0,"code":"20109","data":null,"msg":"手机号码格式不正确"}
+?           ^         ++  ^                     ^^^^^^^^^
+ : 成功注册-无注册名字段
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt1_7' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_register_07_注册失败_密码5位</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通过</span></td>
+</tr>
+
+<tr id='pt1_8' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_register_08_成功注册_密码6位</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通过</span></td>
+</tr>
+
+<tr id='pt1_9' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_register_09_成功注册_密码18位</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通过</span></td>
+</tr>
+
+<tr id='pt1_10' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_register_10_注册失败_密码19位</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通过</span></td>
+</tr>
+
+<tr id='pt1_11' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_register_11_注册失败_手机号为字母加数字</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通过</span></td>
+</tr>
+
+<tr id='pt1_12' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_register_12_注册失败_手机号为字母</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通过</span></td>
+</tr>
+
+<tr id='pt1_13' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_register_13_注册失败_手机号已注册</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通过</span></td>
+</tr>
+
+<tr class='failClass warning'>
+    <td>test_02_login.TestLogin: 测试登陆的类</td>
+    <td class="text-center">8</td>
+    <td class="text-center">7</td>
+    <td class="text-center">1</td>
+    <td class="text-center">0</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c2',8)" class="detail" id='c2'>详细</a></td>
+</tr>
+
+<tr id='pt2_1' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_login_1_登陆成功_完整</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通过</span></td>
+</tr>
+
+<tr id='pt2_2' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_login_2_登陆失败_手机号为空</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通过</span></td>
+</tr>
+
+<tr id='pt2_3' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_login_3_登陆失败_密码为空</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通过</span></td>
+</tr>
+
+<tr id='pt2_4' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_login_4_登陆失败_手机号密码都为空</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通过</span></td>
+</tr>
+
+<tr id='ft2_5' class='none'>
+    <td class='failCase'><div class='testcase'>test_login_5_登陆失败_多传注册名</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft2_5' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft2_5'>失败</button>
+    <div id='div_ft2_5' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft2_5' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft2_5'>失败</button>
+    <div id='div_ft2_5' class="collapse in" align="left">
+    <pre>
+    
+ft2_5: Traceback (most recent call last):
+  File "/Users/grassroadsz/Downloads/Api_projects/libs/ddt.py", line 165, in wrapper
+    return func(self, *args, **kwargs)
+  File "/Users/grassroadsz/Downloads/Api_projects/cases/test_02_login.py", line 59, in test_login
+    raise a
+  File "/Users/grassroadsz/Downloads/Api_projects/cases/test_02_login.py", line 55, in test_login
+    self.assertEqual(except_result, response.text, msg=msg)
+AssertionError: '{"status":0}' != '{"status":1,"code":"10001","data":null,"msg":"登录成功"}'
+- {"status":0}
++ {"status":1,"code":"10001","data":null,"msg":"登录成功"}
+ : 登陆失败-多传注册名
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt2_6' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_login_6_登陆失败_密码5位</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通过</span></td>
+</tr>
+
+<tr id='pt2_7' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_login_7_登陆失败_手机号为字母加数字</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通过</span></td>
+</tr>
+
+<tr id='pt2_8' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_login_8_登陆失败_手机号为字母</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通过</span></td>
+</tr>
+
+<tr class='passClass warning'>
+    <td>test_03_recharge.TestRecharge: 测试充值的类</td>
+    <td class="text-center">15</td>
+    <td class="text-center">15</td>
+    <td class="text-center">0</td>
+    <td class="text-center">0</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c3',15)" class="detail" id='c3'>详细</a></td>
+</tr>
+
+<tr id='pt3_1' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_recharge_01_投资人登陆</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通过</span></td>
+</tr>
+
+<tr id='pt3_2' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_recharge_02_投资人登陆充值</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通过</span></td>
+</tr>
+
+<tr id='pt3_3' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_recharge_03_充值成功_充值金额大于0</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通过</span></td>
+</tr>
+
+<tr id='pt3_4' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_recharge_04_充值成功_充值金额为500000</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通过</span></td>
+</tr>
+
+<tr id='pt3_5' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_recharge_05_充值成功_充值金额精度等于2</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通过</span></td>
+</tr>
+
+<tr id='pt3_6' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_recharge_06_充值失败_充值金额缺失</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通过</span></td>
+</tr>
+
+<tr id='pt3_7' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_recharge_07_充值失败_手机号缺失</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通过</span></td>
+</tr>
+
+<tr id='pt3_8' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_recharge_08_充值失败_充值金额类型非double</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通过</span></td>
+</tr>
+
+<tr id='pt3_9' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_recharge_09_充值失败_手机号类型非string</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通过</span></td>
+</tr>
+
+<tr id='pt3_10' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_recharge_10_充值失败_充值金额小于0</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通过</span></td>
+</tr>
+
+<tr id='pt3_11' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_recharge_11_充值失败_充值金额等于0</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通过</span></td>
+</tr>
+
+<tr id='pt3_12' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_recharge_12_充值失败_充值金额大于500000</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通过</span></td>
+</tr>
+
+<tr id='pt3_13' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_recharge_13_充值失败_充值金额精度大于2</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通过</span></td>
+</tr>
+
+<tr id='pt3_14' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_recharge_14_充值失败_手机号为空</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通过</span></td>
+</tr>
+
+<tr id='pt3_15' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_recharge_15_充值失败_充值金额为空</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通过</span></td>
+</tr>
+
+<tr class='errorClass warning'>
+    <td>test_04_add.TestAdd: 测试加标的类</td>
+    <td class="text-center">51</td>
+    <td class="text-center">39</td>
+    <td class="text-center">11</td>
+    <td class="text-center">1</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c4',51)" class="detail" id='c4'>详细</a></td>
+</tr>
+
+<tr id='pt4_1' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_add_01_管理员登陆</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通过</span></td>
+</tr>
+
+<tr id='pt4_2' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_add_02_管理员加标</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通过</span></td>
+</tr>
+
+<tr id='pt4_3' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_add_03_加标成功_年利率大于0小于24</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通过</span></td>
+</tr>
+
+<tr id='pt4_4' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_add_04_加标成功_年利率等于24</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通过</span></td>
+</tr>
+
+<tr id='pt4_5' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_add_05_加标成功_借款期限类型为0</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通过</span></td>
+</tr>
+
+<tr id='pt4_6' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_add_06_加标成功_借款期限类型为2</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通过</span></td>
+</tr>
+
+<tr id='pt4_7' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_add_07_加标成功_借款期限类型值为4</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通过</span></td>
+</tr>
+
+<tr id='pt4_8' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_add_08_加标成功_还款方式为4</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通过</span></td>
+</tr>
+
+<tr id='pt4_9' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_add_09_加标成功_还款方式为5</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通过</span></td>
+</tr>
+
+<tr id='pt4_10' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_add_10_加标成功_还款方式为10</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通过</span></td>
+</tr>
+
+<tr id='pt4_11' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_add_11_加标成功_还款方式为11</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通过</span></td>
+</tr>
+
+<tr id='pt4_12' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_add_12_加标成功_竞标天数为1</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通过</span></td>
+</tr>
+
+<tr id='pt4_13' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_add_13_加标成功_竞标天数为10</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通过</span></td>
+</tr>
+
+<tr id='pt4_14' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_add_14_加标成功_竞标天数为大于1小于10</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通过</span></td>
+</tr>
+
+<tr id='pt4_15' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_add_15_加标失败_年利率小于0</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通过</span></td>
+</tr>
+
+<tr id='pt4_16' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_add_16_加标失败_年利率为null</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通过</span></td>
+</tr>
+
+<tr id='pt4_17' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_add_17_加标失败_年利率大于24</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通过</span></td>
+</tr>
+
+<tr id='pt4_18' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_add_18_加标失败_年利率等于0</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通过</span></td>
+</tr>
+
+<tr id='pt4_19' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_add_19_加标失败_借款期限类型非_0_2_4_</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通过</span></td>
+</tr>
+
+<tr id='pt4_20' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_add_20_加标失败_借款期限类型为null</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通过</span></td>
+</tr>
+
+<tr id='ft4_21' class='none'>
+    <td class='failCase'><div class='testcase'>test_add_21_加标失败_还款方式非_4_5_10_11_</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft4_21' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft4_21'>失败</button>
+    <div id='div_ft4_21' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft4_21' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft4_21'>失败</button>
+    <div id='div_ft4_21' class="collapse in" align="left">
+    <pre>
+    
+ft4_21: Traceback (most recent call last):
+  File "/Users/grassroadsz/Downloads/Api_projects/libs/ddt.py", line 165, in wrapper
+    return func(self, *args, **kwargs)
+  File "/Users/grassroadsz/Downloads/Api_projects/cases/test_04_add.py", line 69, in test_add
+    raise a
+  File "/Users/grassroadsz/Downloads/Api_projects/cases/test_04_add.py", line 62, in test_add
+    self.assertEqual(str(case_list.expected),res.json().get("code"),msg=tittle)
+AssertionError: '20109' != '10001'
+- 20109
++ 10001
+ : 加标失败-还款方式非(4,5,10,11)
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt4_22' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_add_22_加标失败_还款方式为null</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通过</span></td>
+</tr>
+
+<tr id='ft4_23' class='none'>
+    <td class='failCase'><div class='testcase'>test_add_23_加标失败_竞标天数小于1</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft4_23' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft4_23'>失败</button>
+    <div id='div_ft4_23' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft4_23' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft4_23'>失败</button>
+    <div id='div_ft4_23' class="collapse in" align="left">
+    <pre>
+    
+ft4_23: Traceback (most recent call last):
+  File "/Users/grassroadsz/Downloads/Api_projects/libs/ddt.py", line 165, in wrapper
+    return func(self, *args, **kwargs)
+  File "/Users/grassroadsz/Downloads/Api_projects/cases/test_04_add.py", line 69, in test_add
+    raise a
+  File "/Users/grassroadsz/Downloads/Api_projects/cases/test_04_add.py", line 62, in test_add
+    self.assertEqual(str(case_list.expected),res.json().get("code"),msg=tittle)
+AssertionError: '20109' != '10001'
+- 20109
++ 10001
+ : 加标失败-竞标天数小于1
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='ft4_24' class='none'>
+    <td class='failCase'><div class='testcase'>test_add_24_加标失败_竞标天数大于10</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft4_24' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft4_24'>失败</button>
+    <div id='div_ft4_24' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft4_24' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft4_24'>失败</button>
+    <div id='div_ft4_24' class="collapse in" align="left">
+    <pre>
+    
+ft4_24: Traceback (most recent call last):
+  File "/Users/grassroadsz/Downloads/Api_projects/libs/ddt.py", line 165, in wrapper
+    return func(self, *args, **kwargs)
+  File "/Users/grassroadsz/Downloads/Api_projects/cases/test_04_add.py", line 69, in test_add
+    raise a
+  File "/Users/grassroadsz/Downloads/Api_projects/cases/test_04_add.py", line 62, in test_add
+    self.assertEqual(str(case_list.expected),res.json().get("code"),msg=tittle)
+AssertionError: '20109' != '10001'
+- 20109
++ 10001
+ : 加标失败-竞标天数大于10
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt4_25' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_add_25_加标失败_竞标天数为null</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通过</span></td>
+</tr>
+
+<tr id='ft4_26' class='none'>
+    <td class='failCase'><div class='testcase'>test_add_26_加标失败_借款金额等于1000</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft4_26' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft4_26'>失败</button>
+    <div id='div_ft4_26' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft4_26' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft4_26'>失败</button>
+    <div id='div_ft4_26' class="collapse in" align="left">
+    <pre>
+    
+ft4_26: Traceback (most recent call last):
+  File "/Users/grassroadsz/Downloads/Api_projects/libs/ddt.py", line 165, in wrapper
+    return func(self, *args, **kwargs)
+  File "/Users/grassroadsz/Downloads/Api_projects/cases/test_04_add.py", line 69, in test_add
+    raise a
+  File "/Users/grassroadsz/Downloads/Api_projects/cases/test_04_add.py", line 62, in test_add
+    self.assertEqual(str(case_list.expected),res.json().get("code"),msg=tittle)
+AssertionError: '20106' != '10001'
+- 20106
++ 10001
+ : 加标失败-借款金额等于1000
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt4_27' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_add_27_加标失败_借款金额大于1000但不能被100整除</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通过</span></td>
+</tr>
+
+<tr id='ft4_28' class='none'>
+    <td class='failCase'><div class='testcase'>test_add_28_加标失败_借款金额为空</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft4_28' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft4_28'>失败</button>
+    <div id='div_ft4_28' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft4_28' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft4_28'>失败</button>
+    <div id='div_ft4_28' class="collapse in" align="left">
+    <pre>
+    
+ft4_28: Traceback (most recent call last):
+  File "/Users/grassroadsz/Downloads/Api_projects/libs/ddt.py", line 165, in wrapper
+    return func(self, *args, **kwargs)
+  File "/Users/grassroadsz/Downloads/Api_projects/cases/test_04_add.py", line 69, in test_add
+    raise a
+  File "/Users/grassroadsz/Downloads/Api_projects/cases/test_04_add.py", line 62, in test_add
+    self.assertEqual(str(case_list.expected),res.json().get("code"),msg=tittle)
+AssertionError: '20105' != '20103'
+- 20105
+?     ^
++ 20103
+?     ^
+ : 加标失败-借款金额为空
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt4_29' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_add_29_加标失败_用户ID缺失</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通过</span></td>
+</tr>
+
+<tr id='pt4_30' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_add_30_加标失败_标题缺失</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通过</span></td>
+</tr>
+
+<tr id='pt4_31' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_add_31_加标失败_借款金额缺失</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通过</span></td>
+</tr>
+
+<tr id='pt4_32' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_add_32_加标失败_年利率缺失</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通过</span></td>
+</tr>
+
+<tr id='pt4_33' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_add_33_加标失败_借款期限缺失</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通过</span></td>
+</tr>
+
+<tr id='pt4_34' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_add_34_加标失败_借款期限类型缺失</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通过</span></td>
+</tr>
+
+<tr id='pt4_35' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_add_35_加标失败_还款方式缺失</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通过</span></td>
+</tr>
+
+<tr id='pt4_36' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_add_36_加标失败_竞标天数缺失</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通过</span></td>
+</tr>
+
+<tr id='ft4_37' class='none'>
+    <td class='failCase'><div class='testcase'>test_add_37_加标失败_用户ID类型非int</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft4_37' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft4_37'>失败</button>
+    <div id='div_ft4_37' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft4_37' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft4_37'>失败</button>
+    <div id='div_ft4_37' class="collapse in" align="left">
+    <pre>
+    
+ft4_37: Traceback (most recent call last):
+  File "/Users/grassroadsz/Downloads/Api_projects/libs/ddt.py", line 165, in wrapper
+    return func(self, *args, **kwargs)
+  File "/Users/grassroadsz/Downloads/Api_projects/cases/test_04_add.py", line 69, in test_add
+    raise a
+  File "/Users/grassroadsz/Downloads/Api_projects/cases/test_04_add.py", line 62, in test_add
+    self.assertEqual(str(case_list.expected),res.json().get("code"),msg=tittle)
+AssertionError: '20109' != '10001'
+- 20109
++ 10001
+ : 加标失败-用户ID类型非int
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='ft4_38' class='none'>
+    <td class='failCase'><div class='testcase'>test_add_38_加标失败_标题类型非string</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft4_38' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft4_38'>失败</button>
+    <div id='div_ft4_38' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft4_38' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft4_38'>失败</button>
+    <div id='div_ft4_38' class="collapse in" align="left">
+    <pre>
+    
+ft4_38: Traceback (most recent call last):
+  File "/Users/grassroadsz/Downloads/Api_projects/libs/ddt.py", line 165, in wrapper
+    return func(self, *args, **kwargs)
+  File "/Users/grassroadsz/Downloads/Api_projects/cases/test_04_add.py", line 69, in test_add
+    raise a
+  File "/Users/grassroadsz/Downloads/Api_projects/cases/test_04_add.py", line 62, in test_add
+    self.assertEqual(str(case_list.expected),res.json().get("code"),msg=tittle)
+AssertionError: '20109' != '10001'
+- 20109
++ 10001
+ : 加标失败-标题类型非string
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt4_39' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_add_39_加标失败_借款金额类型非double</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通过</span></td>
+</tr>
+
+<tr id='pt4_40' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_add_40_加标失败_年利率类型非double</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通过</span></td>
+</tr>
+
+<tr id='pt4_41' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_add_41_加标失败_借款期限非int</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通过</span></td>
+</tr>
+
+<tr id='pt4_42' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_add_42_加标失败_借款期限类型非int</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通过</span></td>
+</tr>
+
+<tr id='ft4_43' class='none'>
+    <td class='failCase'><div class='testcase'>test_add_43_加标失败_还款方式类型非int</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft4_43' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft4_43'>失败</button>
+    <div id='div_ft4_43' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft4_43' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft4_43'>失败</button>
+    <div id='div_ft4_43' class="collapse in" align="left">
+    <pre>
+    
+ft4_43: Traceback (most recent call last):
+  File "/Users/grassroadsz/Downloads/Api_projects/libs/ddt.py", line 165, in wrapper
+    return func(self, *args, **kwargs)
+  File "/Users/grassroadsz/Downloads/Api_projects/cases/test_04_add.py", line 69, in test_add
+    raise a
+  File "/Users/grassroadsz/Downloads/Api_projects/cases/test_04_add.py", line 62, in test_add
+    self.assertEqual(str(case_list.expected),res.json().get("code"),msg=tittle)
+AssertionError: '20109' != '10001'
+- 20109
++ 10001
+ : 加标失败-还款方式类型非int
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='ft4_44' class='none'>
+    <td class='failCase'><div class='testcase'>test_add_44_加标失败_竞标天数类型非int</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft4_44' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft4_44'>失败</button>
+    <div id='div_ft4_44' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft4_44' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft4_44'>失败</button>
+    <div id='div_ft4_44' class="collapse in" align="left">
+    <pre>
+    
+ft4_44: Traceback (most recent call last):
+  File "/Users/grassroadsz/Downloads/Api_projects/libs/ddt.py", line 165, in wrapper
+    return func(self, *args, **kwargs)
+  File "/Users/grassroadsz/Downloads/Api_projects/cases/test_04_add.py", line 69, in test_add
+    raise a
+  File "/Users/grassroadsz/Downloads/Api_projects/cases/test_04_add.py", line 62, in test_add
+    self.assertEqual(str(case_list.expected),res.json().get("code"),msg=tittle)
+AssertionError: '20109' != '10001'
+- 20109
++ 10001
+ : 加标失败-竞标天数类型非int
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt4_45' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_add_45_加标失败_用户ID为空</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通过</span></td>
+</tr>
+
+<tr id='pt4_46' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_add_46_加标失败_标题为空</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通过</span></td>
+</tr>
+
+<tr id='pt4_47' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_add_47_加标失败_借款期限为小数</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通过</span></td>
+</tr>
+
+<tr id='ft4_48' class='none'>
+    <td class='failCase'><div class='testcase'>test_add_48_加标失败_借款期限为0</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft4_48' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft4_48'>失败</button>
+    <div id='div_ft4_48' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft4_48' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft4_48'>失败</button>
+    <div id='div_ft4_48' class="collapse in" align="left">
+    <pre>
+    
+ft4_48: Traceback (most recent call last):
+  File "/Users/grassroadsz/Downloads/Api_projects/libs/ddt.py", line 165, in wrapper
+    return func(self, *args, **kwargs)
+  File "/Users/grassroadsz/Downloads/Api_projects/cases/test_04_add.py", line 69, in test_add
+    raise a
+  File "/Users/grassroadsz/Downloads/Api_projects/cases/test_04_add.py", line 62, in test_add
+    self.assertEqual(str(case_list.expected),res.json().get("code"),msg=tittle)
+AssertionError: '20109' != '10001'
+- 20109
++ 10001
+ : 加标失败-借款期限为0
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt4_49' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_add_49_加标失败_借款期限为null</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通过</span></td>
+</tr>
+
+<tr id='ft4_50' class='none'>
+    <td class='failCase'><div class='testcase'>test_add_50_加标失败_用户ID不存在</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft4_50' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft4_50'>失败</button>
+    <div id='div_ft4_50' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft4_50' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft4_50'>失败</button>
+    <div id='div_ft4_50' class="collapse in" align="left">
+    <pre>
+    
+ft4_50: Traceback (most recent call last):
+  File "/Users/grassroadsz/Downloads/Api_projects/libs/ddt.py", line 165, in wrapper
+    return func(self, *args, **kwargs)
+  File "/Users/grassroadsz/Downloads/Api_projects/cases/test_04_add.py", line 69, in test_add
+    raise a
+  File "/Users/grassroadsz/Downloads/Api_projects/cases/test_04_add.py", line 62, in test_add
+    self.assertEqual(str(case_list.expected),res.json().get("code"),msg=tittle)
+AssertionError: '20105' != '20109'
+- 20105
+?     ^
++ 20109
+?     ^
+ : 加标失败-用户ID不存在
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='ft4_51' class='none'>
+    <td class='errorCase'><div class='testcase'>test_add_51_None</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft4_51' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft4_51'>错误</button>
+    <div id='div_ft4_51' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft4_51' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft4_51'>错误</button>
+    <div id='div_ft4_51' class="collapse in" align="left">
+    <pre>
+    
+ft4_51: Traceback (most recent call last):
+  File "/Users/grassroadsz/Downloads/Api_projects/libs/ddt.py", line 165, in wrapper
+    return func(self, *args, **kwargs)
+  File "/Users/grassroadsz/Downloads/Api_projects/cases/test_04_add.py", line 50, in test_add
+    data = DataReplace().phone_replace(case_list.data)
+  File "/Users/grassroadsz/Downloads/Api_projects/options/handle_replace.py", line 111, in phone_replace
+    data = DataReplace.not_existed_phone_replace(data)
+  File "/Users/grassroadsz/Downloads/Api_projects/options/handle_replace.py", line 33, in not_existed_phone_replace
+    if re.search(cls.not_existed_phone, data):
+  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/re.py", line 183, in search
+    return _compile(pattern, flags).search(string)
+TypeError: expected string or bytes-like object
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr class='errorClass warning'>
+    <td>test_05_invest.TestInvest: 测试充值的类</td>
+    <td class="text-center">27</td>
+    <td class="text-center">13</td>
+    <td class="text-center">13</td>
+    <td class="text-center">1</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c5',27)" class="detail" id='c5'>详细</a></td>
+</tr>
+
+<tr id='pt5_1' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_invest_01_管理员登陆</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通过</span></td>
+</tr>
+
+<tr id='pt5_2' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_invest_02_管理员加标</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通过</span></td>
+</tr>
+
+<tr id='pt5_3' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_invest_03_管理员审核</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通过</span></td>
+</tr>
+
+<tr id='pt5_4' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_invest_04_投资人登陆</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通过</span></td>
+</tr>
+
+<tr id='pt5_5' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_invest_05_投资人投资</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通过</span></td>
+</tr>
+
+<tr id='pt5_6' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_invest_06_竞标失败_帐号不传</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通过</span></td>
+</tr>
+
+<tr id='pt5_7' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_invest_07_竞标失败_密码不传</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通过</span></td>
+</tr>
+
+<tr id='ft5_8' class='none'>
+    <td class='errorCase'><div class='testcase'>test_invest_08_竞标失败_标id不传</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft5_8' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft5_8'>错误</button>
+    <div id='div_ft5_8' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft5_8' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft5_8'>错误</button>
+    <div id='div_ft5_8' class="collapse in" align="left">
+    <pre>
+    
+ft5_8: Expecting property name enclosed in double quotes: line 1 column 43 (char 42)
+Traceback (most recent call last):
+  File "/Users/grassroadsz/Downloads/Api_projects/options/handle_requests.py", line 25, in __call__
+    data = json.loads(data)
+  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/json/__init__.py", line 348, in loads
+    return _default_decoder.decode(s)
+  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/json/decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/json/decoder.py", line 353, in raw_decode
+    obj, end = self.scan_once(s, idx)
+json.decoder.JSONDecodeError: Expecting property name enclosed in double quotes: line 1 column 43 (char 42)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/grassroadsz/Downloads/Api_projects/libs/ddt.py", line 165, in wrapper
+    return func(self, *args, **kwargs)
+  File "/Users/grassroadsz/Downloads/Api_projects/cases/test_05_invest.py", line 52, in test_invest
+    res = TestInvest.myrequest(case_list.method, self.do_config("api", "base_url") + case_list.url, data)
+  File "/Users/grassroadsz/Downloads/Api_projects/options/handle_requests.py", line 28, in __call__
+    data = eval(data)
+  File "&lt;string&gt;", line 1
+    {"memberId":"${memberID}","pwd": "123456",,"amount":"1234"}
+                                              ^
+SyntaxError: invalid syntax
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt5_9' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_invest_09_竞标失败_投资金额不传</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通过</span></td>
+</tr>
+
+<tr id='pt5_10' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_invest_10_竞标失败_帐号非int类型</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通过</span></td>
+</tr>
+
+<tr id='ft5_11' class='none'>
+    <td class='failCase'><div class='testcase'>test_invest_11_竞标失败_密码非string类型</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft5_11' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft5_11'>失败</button>
+    <div id='div_ft5_11' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft5_11' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft5_11'>失败</button>
+    <div id='div_ft5_11' class="collapse in" align="left">
+    <pre>
+    
+ft5_11: Traceback (most recent call last):
+  File "/Users/grassroadsz/Downloads/Api_projects/libs/ddt.py", line 165, in wrapper
+    return func(self, *args, **kwargs)
+  File "/Users/grassroadsz/Downloads/Api_projects/cases/test_05_invest.py", line 77, in test_invest
+    raise a
+  File "/Users/grassroadsz/Downloads/Api_projects/cases/test_05_invest.py", line 70, in test_invest
+    self.assertEqual(str(case_list.expected),res.json().get("code"),msg=tittle)
+AssertionError: '11006' != '11003'
+- 11006
+?     ^
++ 11003
+?     ^
+ : 竞标失败-密码非string类型
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='ft5_12' class='none'>
+    <td class='failCase'><div class='testcase'>test_invest_12_竞标失败_标id非double类型</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft5_12' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft5_12'>失败</button>
+    <div id='div_ft5_12' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft5_12' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft5_12'>失败</button>
+    <div id='div_ft5_12' class="collapse in" align="left">
+    <pre>
+    
+ft5_12: Traceback (most recent call last):
+  File "/Users/grassroadsz/Downloads/Api_projects/libs/ddt.py", line 165, in wrapper
+    return func(self, *args, **kwargs)
+  File "/Users/grassroadsz/Downloads/Api_projects/cases/test_05_invest.py", line 77, in test_invest
+    raise a
+  File "/Users/grassroadsz/Downloads/Api_projects/cases/test_05_invest.py", line 70, in test_invest
+    self.assertEqual(str(case_list.expected),res.json().get("code"),msg=tittle)
+AssertionError: '11009' != '11003'
+- 11009
+?     ^
++ 11003
+?     ^
+ : 竞标失败-标id非double类型
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt5_13' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_invest_13_竞标失败_投资金额非double类型</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通过</span></td>
+</tr>
+
+<tr id='pt5_14' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_invest_14_竞标失败_标的为null</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通过</span></td>
+</tr>
+
+<tr id='ft5_15' class='none'>
+    <td class='failCase'><div class='testcase'>test_invest_15_竞标失败_标的为0</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft5_15' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft5_15'>失败</button>
+    <div id='div_ft5_15' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft5_15' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft5_15'>失败</button>
+    <div id='div_ft5_15' class="collapse in" align="left">
+    <pre>
+    
+ft5_15: Traceback (most recent call last):
+  File "/Users/grassroadsz/Downloads/Api_projects/libs/ddt.py", line 165, in wrapper
+    return func(self, *args, **kwargs)
+  File "/Users/grassroadsz/Downloads/Api_projects/cases/test_05_invest.py", line 77, in test_invest
+    raise a
+  File "/Users/grassroadsz/Downloads/Api_projects/cases/test_05_invest.py", line 70, in test_invest
+    self.assertEqual(str(case_list.expected),res.json().get("code"),msg=tittle)
+AssertionError: '11009' != '11003'
+- 11009
+?     ^
++ 11003
+?     ^
+ : 竞标失败-标的为0
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='ft5_16' class='none'>
+    <td class='failCase'><div class='testcase'>test_invest_16_竞标失败_标的小于0</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft5_16' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft5_16'>失败</button>
+    <div id='div_ft5_16' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft5_16' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft5_16'>失败</button>
+    <div id='div_ft5_16' class="collapse in" align="left">
+    <pre>
+    
+ft5_16: Traceback (most recent call last):
+  File "/Users/grassroadsz/Downloads/Api_projects/libs/ddt.py", line 165, in wrapper
+    return func(self, *args, **kwargs)
+  File "/Users/grassroadsz/Downloads/Api_projects/cases/test_05_invest.py", line 77, in test_invest
+    raise a
+  File "/Users/grassroadsz/Downloads/Api_projects/cases/test_05_invest.py", line 70, in test_invest
+    self.assertEqual(str(case_list.expected),res.json().get("code"),msg=tittle)
+AssertionError: '11009' != '11003'
+- 11009
+?     ^
++ 11003
+?     ^
+ : 竞标失败-标的小于0
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt5_17' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_invest_17_竞标失败_用户id为null</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通过</span></td>
+</tr>
+
+<tr id='ft5_18' class='none'>
+    <td class='failCase'><div class='testcase'>test_invest_18_竞标失败_用户id小于0</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft5_18' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft5_18'>失败</button>
+    <div id='div_ft5_18' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft5_18' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft5_18'>失败</button>
+    <div id='div_ft5_18' class="collapse in" align="left">
+    <pre>
+    
+ft5_18: Traceback (most recent call last):
+  File "/Users/grassroadsz/Downloads/Api_projects/libs/ddt.py", line 165, in wrapper
+    return func(self, *args, **kwargs)
+  File "/Users/grassroadsz/Downloads/Api_projects/cases/test_05_invest.py", line 77, in test_invest
+    raise a
+  File "/Users/grassroadsz/Downloads/Api_projects/cases/test_05_invest.py", line 70, in test_invest
+    self.assertEqual(str(case_list.expected),res.json().get("code"),msg=tittle)
+AssertionError: '11004' != '11003'
+- 11004
+?     ^
++ 11003
+?     ^
+ : 竞标失败-用户id小于0
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='ft5_19' class='none'>
+    <td class='failCase'><div class='testcase'>test_invest_19_竞标失败_用户id为0</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft5_19' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft5_19'>失败</button>
+    <div id='div_ft5_19' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft5_19' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft5_19'>失败</button>
+    <div id='div_ft5_19' class="collapse in" align="left">
+    <pre>
+    
+ft5_19: Traceback (most recent call last):
+  File "/Users/grassroadsz/Downloads/Api_projects/libs/ddt.py", line 165, in wrapper
+    return func(self, *args, **kwargs)
+  File "/Users/grassroadsz/Downloads/Api_projects/cases/test_05_invest.py", line 77, in test_invest
+    raise a
+  File "/Users/grassroadsz/Downloads/Api_projects/cases/test_05_invest.py", line 70, in test_invest
+    self.assertEqual(str(case_list.expected),res.json().get("code"),msg=tittle)
+AssertionError: '11004' != '11003'
+- 11004
+?     ^
++ 11003
+?     ^
+ : 竞标失败-用户id为0
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt5_20' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_invest_20_竞标失败_密码为null</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通过</span></td>
+</tr>
+
+<tr id='ft5_21' class='none'>
+    <td class='failCase'><div class='testcase'>test_invest_21_竞标失败_密码长度小于6位</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft5_21' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft5_21'>失败</button>
+    <div id='div_ft5_21' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft5_21' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft5_21'>失败</button>
+    <div id='div_ft5_21' class="collapse in" align="left">
+    <pre>
+    
+ft5_21: Traceback (most recent call last):
+  File "/Users/grassroadsz/Downloads/Api_projects/libs/ddt.py", line 165, in wrapper
+    return func(self, *args, **kwargs)
+  File "/Users/grassroadsz/Downloads/Api_projects/cases/test_05_invest.py", line 77, in test_invest
+    raise a
+  File "/Users/grassroadsz/Downloads/Api_projects/cases/test_05_invest.py", line 70, in test_invest
+    self.assertEqual(str(case_list.expected),res.json().get("code"),msg=tittle)
+AssertionError: '11006' != '11003'
+- 11006
+?     ^
++ 11003
+?     ^
+ : 竞标失败-密码长度小于6位
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='ft5_22' class='none'>
+    <td class='failCase'><div class='testcase'>test_invest_22_竞标失败_密码长度大于18位</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft5_22' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft5_22'>失败</button>
+    <div id='div_ft5_22' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft5_22' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft5_22'>失败</button>
+    <div id='div_ft5_22' class="collapse in" align="left">
+    <pre>
+    
+ft5_22: Traceback (most recent call last):
+  File "/Users/grassroadsz/Downloads/Api_projects/libs/ddt.py", line 165, in wrapper
+    return func(self, *args, **kwargs)
+  File "/Users/grassroadsz/Downloads/Api_projects/cases/test_05_invest.py", line 77, in test_invest
+    raise a
+  File "/Users/grassroadsz/Downloads/Api_projects/cases/test_05_invest.py", line 70, in test_invest
+    self.assertEqual(str(case_list.expected),res.json().get("code"),msg=tittle)
+AssertionError: '11006' != '11003'
+- 11006
+?     ^
++ 11003
+?     ^
+ : 竞标失败-密码长度大于18位
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='ft5_23' class='none'>
+    <td class='failCase'><div class='testcase'>test_invest_23_竞标失败_用户id不存在</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft5_23' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft5_23'>失败</button>
+    <div id='div_ft5_23' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft5_23' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft5_23'>失败</button>
+    <div id='div_ft5_23' class="collapse in" align="left">
+    <pre>
+    
+ft5_23: Traceback (most recent call last):
+  File "/Users/grassroadsz/Downloads/Api_projects/libs/ddt.py", line 165, in wrapper
+    return func(self, *args, **kwargs)
+  File "/Users/grassroadsz/Downloads/Api_projects/cases/test_05_invest.py", line 77, in test_invest
+    raise a
+  File "/Users/grassroadsz/Downloads/Api_projects/cases/test_05_invest.py", line 70, in test_invest
+    self.assertEqual(str(case_list.expected),res.json().get("code"),msg=tittle)
+AssertionError: '11008' != '11003'
+- 11008
+?     ^
++ 11003
+?     ^
+ : 竞标失败-用户id不存在
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='ft5_24' class='none'>
+    <td class='failCase'><div class='testcase'>test_invest_24_竞标失败_标的不存在</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft5_24' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft5_24'>失败</button>
+    <div id='div_ft5_24' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft5_24' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft5_24'>失败</button>
+    <div id='div_ft5_24' class="collapse in" align="left">
+    <pre>
+    
+ft5_24: Traceback (most recent call last):
+  File "/Users/grassroadsz/Downloads/Api_projects/libs/ddt.py", line 165, in wrapper
+    return func(self, *args, **kwargs)
+  File "/Users/grassroadsz/Downloads/Api_projects/cases/test_05_invest.py", line 77, in test_invest
+    raise a
+  File "/Users/grassroadsz/Downloads/Api_projects/cases/test_05_invest.py", line 70, in test_invest
+    self.assertEqual(str(case_list.expected),res.json().get("code"),msg=tittle)
+AssertionError: '11009' != '11003'
+- 11009
+?     ^
++ 11003
+?     ^
+ : 竞标失败-标的不存在
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='ft5_25' class='none'>
+    <td class='failCase'><div class='testcase'>test_invest_25_竞标失败_标的非竞标状态</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft5_25' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft5_25'>失败</button>
+    <div id='div_ft5_25' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft5_25' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft5_25'>失败</button>
+    <div id='div_ft5_25' class="collapse in" align="left">
+    <pre>
+    
+ft5_25: Traceback (most recent call last):
+  File "/Users/grassroadsz/Downloads/Api_projects/libs/ddt.py", line 165, in wrapper
+    return func(self, *args, **kwargs)
+  File "/Users/grassroadsz/Downloads/Api_projects/cases/test_05_invest.py", line 77, in test_invest
+    raise a
+  File "/Users/grassroadsz/Downloads/Api_projects/cases/test_05_invest.py", line 70, in test_invest
+    self.assertEqual(str(case_list.expected),res.json().get("code"),msg=tittle)
+AssertionError: '11010' != '11003'
+- 11010
+?    -
++ 11003
+?     +
+ : 竞标失败-标的非竞标状态
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='ft5_26' class='none'>
+    <td class='failCase'><div class='testcase'>test_invest_26_竞标失败_标的满标</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft5_26' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft5_26'>失败</button>
+    <div id='div_ft5_26' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft5_26' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft5_26'>失败</button>
+    <div id='div_ft5_26' class="collapse in" align="left">
+    <pre>
+    
+ft5_26: Traceback (most recent call last):
+  File "/Users/grassroadsz/Downloads/Api_projects/libs/ddt.py", line 165, in wrapper
+    return func(self, *args, **kwargs)
+  File "/Users/grassroadsz/Downloads/Api_projects/cases/test_05_invest.py", line 77, in test_invest
+    raise a
+  File "/Users/grassroadsz/Downloads/Api_projects/cases/test_05_invest.py", line 70, in test_invest
+    self.assertEqual(str(case_list.expected),res.json().get("code"),msg=tittle)
+AssertionError: '11011' != '11003'
+- 11011
++ 11003
+ : 竞标失败-标的满标
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='ft5_27' class='none'>
+    <td class='failCase'><div class='testcase'>test_invest_27_竞标失败_标的金额不足</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft5_27' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft5_27'>失败</button>
+    <div id='div_ft5_27' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft5_27' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft5_27'>失败</button>
+    <div id='div_ft5_27' class="collapse in" align="left">
+    <pre>
+    
+ft5_27: Traceback (most recent call last):
+  File "/Users/grassroadsz/Downloads/Api_projects/libs/ddt.py", line 165, in wrapper
+    return func(self, *args, **kwargs)
+  File "/Users/grassroadsz/Downloads/Api_projects/cases/test_05_invest.py", line 77, in test_invest
+    raise a
+  File "/Users/grassroadsz/Downloads/Api_projects/cases/test_05_invest.py", line 70, in test_invest
+    self.assertEqual(str(case_list.expected),res.json().get("code"),msg=tittle)
+AssertionError: '11012' != '11003'
+- 11012
++ 11003
+ : 竞标失败-标的金额不足
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='total_row' class="text-center active">
+    <td>总计</td>
+    <td>114</td>
+    <td>85</td>
+    <td>27</td>
+    <td>2</td>
+    <td>通过率：74.56%</td>
+</tr>
+</table>
+
+<div id='ending'>&nbsp;</div>
+    <div style=" position:fixed;right:50px; bottom:30px; width:20px; height:20px;cursor:pointer">
+    <a href="#"><span class="glyphicon glyphicon-eject" style = "font-size:30px;" aria-hidden="true">
+    </span></a></div>
+    
+</body>
+</html>
