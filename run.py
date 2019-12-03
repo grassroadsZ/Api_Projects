@@ -34,7 +34,7 @@ with open(os.path.join(fina, now + "_report" + ".html"), "wb") as file:
     test_runner.run(one_suite)
 
 msg = MIMEMultipart()
-recevier = ['2313519547@qq.com', '1342478656@qq.com']
+recevier = ['2313519547@qq.com', ]
 msg["from"] = "zys17666541106@163.com"
 msg["to"] = ','.join(recevier)
 msg["subject"] = u"接口测试报告"
@@ -68,3 +68,6 @@ try:
         print(u"邮件发送成功")
 except Exception as e:
     print('false',e)
+
+if __name__ == '__main__':
+    unittest.main()
