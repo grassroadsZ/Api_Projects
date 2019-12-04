@@ -54,7 +54,7 @@ file = os.path.join(REPORTS_PATH, lists[-1])
 att = MIMEText(open(file, "rb").read(), "base64", "utf-8")
 
 att["Content-Type"] = "application/octet-stream"
-att.add_header("Content-Disposition", 'attachment', filename=(file))
+att.add_header("Content-Disposition", 'attachment', filename=(lists[-1]))
 att["Accept-Language"] = "zh-CN"
 att["Accept-Charset"] = "ISO-8859,utf-8"
 msg.attach(att)
